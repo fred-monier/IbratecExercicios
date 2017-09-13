@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:padding="15dp"
+    android:orientation="vertical"
+    
+    tools:context="ibratec.recife.pe.br.ibratecexercicios.Exercicio02_IncluirEstudante">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insira os dados do Estudante"
+        />
+
+    <EditText
+        android:id="@+id/editNomeEstudante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nome"/>
+
+    <EditText
+        android:id="@+id/editTelefoneEstudante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Telefone"/>
+
+    <EditText
+        android:id="@+id/editEnderecoEstudante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Endereço"/>
+
+    <EditText
+        android:id="@+id/editSiteEstudante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Site Pessoal"/>
+
+    <EditText
+        android:id="@+id/editNotaEstudante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nota"/>
+
+    <Button
+        android:id="@+id/buttonConfirmar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirmar" />
+
+</LinearLayout>
