@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/black"
+
+    tools:context="ibratec.recife.pe.br.ibratecexercicios.Exercicio03_RelativeLayout">
+
+    <!--
+         android:layout_alignParentRight="true"
+         android:layout_alignTop="@+id/textView1"
+         android:layout_toRightOf="@+id/btnButton3"
+    -->
+
+    <TextView
+        android:id="@+id/l1textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textAlignment="center"
+        android:background="@android:color/holo_red_light"
+        android:textColor="#0f0e0e"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="RED" />
+
+    <TextView
+        android:id="@+id/l1textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/l1textView1"
+        android:textAlignment="center"
+        android:background="@android:color/holo_orange_dark"
+        android:textColor="#0f0e0e"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ORANGE" />
+
+    <TextView
+        android:id="@+id/l1textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/l1textView2"
+        android:layout_alignParentRight="true"
+        android:textAlignment="center"
+        android:background="#e1ff02"
+        android:textColor="#0f0e0e"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="YELLOW" />
+
+    <TextView
+        android:id="@+id/l2textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:textAlignment="center"
+        android:background="#0ac407"
+        android:textColor="#0f0e0e"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="GREEN" />
+
+    <TextView
+        android:id="@+id/l2textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:layout_toRightOf="@+id/l2textView1"
+        android:textAlignment="center"
+        android:background="#0610a3"
+        android:textColor="#fcfcfc"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="BLUE" />
+
+    <TextView
+        android:id="@+id/l2textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:layout_toRightOf="@+id/l2textView2"
+        android:textAlignment="center"
+        android:background="#8407c6"
+        android:textColor="#fcfcfc"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="INDIGO" />
+
+    <TextView
+        android:id="@+id/l3textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:textAlignment="center"
+        android:background="#ef62da"
+        android:textColor="#0f0e0e"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="VIOLET" />
+
+
+</RelativeLayout>
