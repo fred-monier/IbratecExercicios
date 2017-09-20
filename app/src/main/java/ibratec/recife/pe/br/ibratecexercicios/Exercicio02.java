@@ -38,10 +38,11 @@ public class Exercicio02 extends AppCompatActivity {
         //Inicializando a Lista de Estudantes
         if (savedInstanceState != null) {
             listEstudantes = (ArrayList<Exercicio02_Estudante>) savedInstanceState.getSerializable(LISTA_ESTUDANTES);
-            this.montarLista();
         } else {
             listEstudantes = new ArrayList<Exercicio02_Estudante>();
         }
+
+        this.montarLista();
 
         //Recuperando botão de inserir estudante
         buttonInserirEstudante = (Button) findViewById(R.id.button3);
@@ -65,7 +66,7 @@ public class Exercicio02 extends AppCompatActivity {
 
                 Exercicio02_Estudante estudante = (Exercicio02_Estudante) data.getSerializableExtra(Exercicio02.VAR_ESTUDANTE);
                 listEstudantes.add(estudante);
-                this.montarLista();
+                this.listEstudantesAdapter.notifyDataSetChanged();
             }
         }
     }
