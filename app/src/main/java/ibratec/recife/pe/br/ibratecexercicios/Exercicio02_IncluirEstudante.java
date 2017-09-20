@@ -44,7 +44,7 @@ public class Exercicio02_IncluirEstudante extends AppCompatActivity {
                     estudante.setSite(editSiteEstudante.getText().toString());
                     estudante.setNota(editNotaEstudante.getText().toString());
 
-                    Intent devolve = new Intent();
+                    Intent devolve = getIntent();
                     devolve.putExtra(Exercicio02.VAR_ESTUDANTE, estudante);
                     setResult(Activity.RESULT_OK, devolve);
                     finish();
