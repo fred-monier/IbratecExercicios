@@ -3,4 +3,12 @@
     <string name="button1">Exibir Toast</string>
     <string name="button2">Exibir Estudante</string>
     <string name="button3">Inserir Estudante</string>
+
+    <string name="swtAsaFixa_on">Fixa</string>
+    <string name="swtAsaFixa_off">Rotativa</string>
+    <string name="tgBtTremRetrat_on">Trem Retrátil</string>
+    <string name="tgBtTremRetrat_off">Trem Fixo</string>
+    <string name="tgBtMono_on">Monomotor</string>
+    <string name="tgBtMono_off">Multimotor</string>
+
 </resources>

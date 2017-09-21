@@ -1,0 +1,85 @@
+package ibratec.recife.pe.br.ibratecexercicios.exercicio04;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/**
+ * Created by Frederico on 20/09/2017.
+ */
+
+public class Aeronave {
+
+    public static final ArrayList<String> LISTA_FABRICANTE =
+            new ArrayList<String>(Arrays.asList("EMBRAER", "HELIBRAS", "DORNIER", "PIPER"));
+    public static final ArrayList<String> LISTA_HANGAR =
+            new ArrayList<String>(Arrays.asList("HG01", "HG02", "HG03"));
+
+    private String modelo;
+    private boolean asaFixa;
+    private boolean tremRetratil;
+    private boolean monomotor;
+    private String fabricante;
+    private int velocidadeCruzeiro;
+    private String hangar;
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public boolean isAsaFixa() {
+        return asaFixa;
+    }
+
+    public void setAsaFixa(boolean asaFixa) {
+        this.asaFixa = asaFixa;
+    }
+
+    public boolean isTremRetratil() {
+        return tremRetratil;
+    }
+
+    public void setTremRetratil(boolean tremRetratil) {
+        this.tremRetratil = tremRetratil;
+    }
+
+    public boolean isMonomotor() {
+        return monomotor;
+    }
+
+    public void setMonomotor(boolean monomotor) {
+        this.monomotor = monomotor;
+    }
+
+    public String getFabricante() {
+        return fabricante;
+    }
+
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
+    }
+
+    public int getVelocidadeCruzeiro() {
+        return velocidadeCruzeiro;
+    }
+
+    public void setVelocidadeCruzeiro(int velocidadeCruzeiro) {
+        this.velocidadeCruzeiro = velocidadeCruzeiro;
+    }
+
+    public String getHangar() {
+        return hangar;
+    }
+
+    public void setHangar(String hangar) {
+        this.hangar = hangar;
+    }
+
+    @Override
+    public String toString() {
+        return this.modelo;
+    }
+}

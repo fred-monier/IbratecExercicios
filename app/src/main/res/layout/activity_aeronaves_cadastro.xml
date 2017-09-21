@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+
+    tools:context="ibratec.recife.pe.br.ibratecexercicios.exercicio04.AeronavesCadastro">
+
+    <EditText
+        android:id="@+id/edtTxtModelo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Modelo"/>
+
+    <Switch
+        android:id="@+id/swtAsaFixa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="@string/swtAsaFixa_on"
+        android:textOff="@string/swtAsaFixa_off"
+        android:showText="true"
+        android:text="Asa:"
+        android:gravity="left"
+        android:checked="true" />
+
+    <ToggleButton
+        android:id="@+id/tgBtTremRetrat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOn="@string/tgBtTremRetrat_on"
+        android:textOff="@string/tgBtTremRetrat_off"
+        android:gravity="left"
+        android:checked="false" />
+
+    <ToggleButton
+        android:id="@+id/tgBtMono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOn="@string/tgBtMono_on"
+        android:textOff="@string/tgBtMono_off"
+        android:gravity="left"
+        android:checked="true" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCELAR"/>
+
+        <Button
+            android:id="@+id/btnSalvar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SALVAR"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
