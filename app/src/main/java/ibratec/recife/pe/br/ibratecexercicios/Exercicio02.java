@@ -123,8 +123,10 @@ public class Exercicio02 extends AppCompatActivity {
         itemLocalizacao.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Implementar localização", Toast.LENGTH_SHORT);
-                toast.show();
+                Uri mapUri = Uri.parse("geo:0,0?q=" + Uri.encode(estudanteSelecionado.getEndereco()));
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
                 return true;
             }
         });

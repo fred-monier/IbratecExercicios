@@ -41,6 +41,7 @@ public class Exercicio02_IncluirEstudante extends AppCompatActivity {
                     Exercicio02_Estudante estudante = new Exercicio02_Estudante();
                     estudante.setNome(editNomeEstudante.getText().toString());
                     estudante.setTelefone(editTelefoneEstudante.getText().toString());
+                    estudante.setEndereco(editEnderecoEstudante.getText().toString());
                     estudante.setSite(editSiteEstudante.getText().toString());
                     estudante.setNota(editNotaEstudante.getText().toString());
 
