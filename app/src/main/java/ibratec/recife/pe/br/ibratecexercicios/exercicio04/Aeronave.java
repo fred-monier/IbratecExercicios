@@ -18,6 +18,7 @@ public class Aeronave {
     private boolean asaFixa;
     private boolean tremRetratil;
     private boolean monomotor;
+    private boolean apto;
     private String fabricante;
     private int velocidadeCruzeiro;
     private String hangar;
@@ -52,6 +53,14 @@ public class Aeronave {
 
     public void setMonomotor(boolean monomotor) {
         this.monomotor = monomotor;
+    }
+
+    public boolean isApto() {
+        return apto;
+    }
+
+    public void setApto(boolean apto) {
+        this.apto = apto;
     }
 
     public String getFabricante() {
