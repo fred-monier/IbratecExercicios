@@ -1,5 +1,6 @@
 package ibratec.recife.pe.br.ibratecexercicios.exercicio04;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,7 +8,7 @@ import java.util.Arrays;
  * Created by Frederico on 20/09/2017.
  */
 
-public class Aeronave {
+public class Aeronave implements Serializable {
 
     public static final ArrayList<String> LISTA_FABRICANTE =
             new ArrayList<String>(Arrays.asList("EMBRAER", "HELIBRAS", "DORNIER", "PIPER"));
@@ -17,7 +18,7 @@ public class Aeronave {
     private String modelo;
     private boolean asaFixa;
     private boolean tremRetratil;
-    private boolean monomotor;
+    private boolean multimotor;
     private boolean apto;
     private String fabricante;
     private int velocidadeCruzeiro;
@@ -47,12 +48,12 @@ public class Aeronave {
         this.tremRetratil = tremRetratil;
     }
 
-    public boolean isMonomotor() {
-        return monomotor;
+    public boolean isMultimotor() {
+        return multimotor;
     }
 
-    public void setMonomotor(boolean monomotor) {
-        this.monomotor = monomotor;
+    public void setMultimotor(boolean multimotor) {
+        this.multimotor = multimotor;
     }
 
     public boolean isApto() {
