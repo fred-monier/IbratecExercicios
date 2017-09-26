@@ -15,6 +15,7 @@ public class Aeronave implements Serializable {
     public static final ArrayList<String> LISTA_HANGAR =
             new ArrayList<String>(Arrays.asList("HG01", "HG02", "HG03"));
 
+    private long id;
     private String modelo;
     private boolean asaFixa;
     private boolean tremRetratil;
@@ -23,6 +24,14 @@ public class Aeronave implements Serializable {
     private String fabricante;
     private int velocidadeCruzeiro;
     private String hangar;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getModelo() {
         return modelo;
