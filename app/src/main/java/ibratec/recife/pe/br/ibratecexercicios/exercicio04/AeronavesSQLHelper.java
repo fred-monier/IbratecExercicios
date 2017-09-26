@@ -46,6 +46,8 @@ public class AeronavesSQLHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        String sql = "DROP TABLE " + TABELA_AERONAVE;
+        db.execSQL(sql);
+        onCreate(db);
     }
 }

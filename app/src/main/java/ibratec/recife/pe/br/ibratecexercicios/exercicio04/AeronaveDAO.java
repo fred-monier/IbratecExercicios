@@ -1,16 +1,9 @@
 package ibratec.recife.pe.br.ibratecexercicios.exercicio04;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.CharArrayBuffer;
-import android.database.ContentObserver;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
-import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,13 +106,16 @@ public class AeronaveDAO {
 
         Cursor cursor = db.rawQuery(sql, args);
         while (cursor.moveToNext()) {
+
             long idCol = cursor.getLong(cursor.getColumnIndex(bdHelper.TABELA_AERONAVE_COLUNA_ID));
             String modeloCol = cursor.getString(cursor.getColumnIndex(bdHelper.TABELA_AERONAVE_COLUNA_MODELO));
-
-            //
-            //.........
-            //..........
-            //
+            String fabCol = cursor.getString(cursor.getColumnIndex(bdHelper.TABELA_AERONAVE_COLUNA_FABRICANTE));
+            int asaCol = cursor.getInt(cursor.getColumnIndex(bdHelper.TABELA_AERONAVE_COLUNA_ASA_FIXA));
+            int tremCol = cursor.getInt(cursor.getColumnIndex(bdHelper.TABELA_AERONAVE_COLUNA_TREM_RETRATIL));
+            int mulCol = cursor.getInt(cursor.getColumnIndex(bdHelper.TABELA_AERONAVE_COLUNA_MULTIMOTOR));
+            int velCol = cursor.getInt(cursor.getColumnIndex(bdHelper.TABELA_AERONAVE_COLUNA_VELOCIDADE_CRUZEIRO));
+            String hanCol = cursor.getString(cursor.getColumnIndex(bdHelper.TABELA_AERONAVE_COLUNA_HANGAR));
+            int aptCol = cursor.getInt(cursor.getColumnIndex(bdHelper.TABELA_AERONAVE_COLUNA_APTO));
 
             Aeronave aeronave = new Aeronave();
             aeronave.setId(idCol);
