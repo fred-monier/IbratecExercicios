@@ -26,7 +26,7 @@ public class AeronavesLista extends AppCompatActivity {
 
     private Aeronave aeronaveWork;
     private ArrayList<Aeronave> listaAeronaves;
-    private ArrayAdapter<Aeronave> listaAeronavesAdapter;
+    private AeronavesAdapter listaAeronavesAdapter;
 
 
     @Override
@@ -122,8 +122,7 @@ public class AeronavesLista extends AppCompatActivity {
     }
 
     private void montarLista() {
-        listaAeronavesAdapter =
-                new ArrayAdapter<Aeronave>(this, android.R.layout.simple_list_item_1, listaAeronaves);
+        listaAeronavesAdapter = new AeronavesAdapter(listaAeronaves, this);
         ListView listaAeronavesView = (ListView) findViewById(R.id.listview1);
         listaAeronavesView.setAdapter(listaAeronavesAdapter);
 
