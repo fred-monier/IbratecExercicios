@@ -64,9 +64,6 @@ public class AeronavesLista extends AppCompatActivity {
 
         if (requestCode == INCLUIR_AERONAVE) {
 
-            Toast toast = Toast.makeText(getApplicationContext(), "INCLUIR", Toast.LENGTH_SHORT);
-            toast.show();
-
             if (resultCode == RESULT_OK) {
 
                 Aeronave aeronave = (Aeronave) data.getSerializableExtra(AERONAVE);
@@ -76,10 +73,6 @@ public class AeronavesLista extends AppCompatActivity {
             } else if (resultCode == RESULT_CANCELED) {};
 
         } else if (requestCode == ALTERAR_AERONAVE) {
-
-            Toast toast = Toast.makeText(getApplicationContext(), "ALTERAR", Toast.LENGTH_SHORT);
-            toast.show();
-
 
             if (resultCode == RESULT_OK) {
 
