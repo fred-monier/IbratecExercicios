@@ -39,6 +39,8 @@ public class AeronavesCadastro extends AppCompatActivity {
     private RadioButton rdBtHangarHA03;
     private ToggleButton tgBtDisponib;
 
+    private long idAeronave = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -124,6 +126,8 @@ public class AeronavesCadastro extends AppCompatActivity {
 
         if (aer != null) {
 
+            this.idAeronave = aer.getId();
+
             edtTxtModelo.setText(aer.getModelo());
 
             if (aer.getFabricante() != null) {
@@ -156,6 +160,7 @@ public class AeronavesCadastro extends AppCompatActivity {
 
         Aeronave res = new Aeronave();
 
+        res.setId(this.idAeronave);
         res.setModelo(this.edtTxtModelo.getText().toString());
         res.setFabricante(this.spFabricante.getSelectedItem().toString());
         res.setAsaFixa(this.swtAsaFixa.isChecked());

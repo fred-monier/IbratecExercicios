@@ -13,13 +13,33 @@
 
     tools:context="ibratec.recife.pe.br.ibratecexercicios.exercicio04.AeronavesLista">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edtTxtModeloPesq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Pesquisar Modelo" />
+
+        <Button
+            android:id="@+id/btPesquisarModelo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pesquisar"/>
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Cadastro de Aeronaves:"/>
+        android:text="Aeronaves - Lista"/>
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -8,7 +8,10 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,15 +25,21 @@ public class AeronavesLista extends AppCompatActivity {
     private static final int INCLUIR_AERONAVE = 1;
     private static final int ALTERAR_AERONAVE = 2;
 
+    private EditText edtTxtModeloPesq;
+
     private Aeronave aeronaveWork;
     private ArrayList<Aeronave> listaAeronaves;
     private AeronavesAdapter listaAeronavesAdapter;
+
+    private AeronaveDAO aeronaveDAO;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aeronaves_lista);
+
+        aeronaveDAO = AeronaveDAO.getInstancia(this);
 
         if (savedInstanceState != null) {
             listaAeronaves = (ArrayList<Aeronave>) savedInstanceState.getSerializable(LISTA_AERONAVES);
@@ -40,6 +49,17 @@ public class AeronavesLista extends AppCompatActivity {
 
         this.montarLista();
 
+        //inicializando componentes
+        edtTxtModeloPesq = (EditText) findViewById(R.id.edtTxtModeloPesq);
+
+        Button btPesquisarModelo = (Button) findViewById(R.id.btPesquisarModelo);
+        btPesquisarModelo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pesquisar();
+            }
+        });
+
         FloatingActionButton button1 = (FloatingActionButton) findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +68,7 @@ public class AeronavesLista extends AppCompatActivity {
                 startActivityForResult(intent, INCLUIR_AERONAVE);
             }
         });
+        ////////////////
 
     }
 
@@ -65,8 +86,9 @@ public class AeronavesLista extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 Aeronave aeronave = (Aeronave) data.getSerializableExtra(AERONAVE);
-                listaAeronaves.add(aeronave);
-                this.listaAeronavesAdapter.notifyDataSetChanged();
+
+                aeronaveDAO.salvar(aeronave);
+                pesquisar();
 
             } else if (resultCode == RESULT_CANCELED) {};
 
@@ -75,8 +97,9 @@ public class AeronavesLista extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 Aeronave aeronave = (Aeronave) data.getSerializableExtra(AERONAVE);
-                this.alterarAeronaveSelecionada(aeronave);
-                this.listaAeronavesAdapter.notifyDataSetChanged();
+                aeronaveDAO.salvar(aeronave);
+                //this.alterarAeronaveSelecionada(aeronave);
+                pesquisar();
 
             } else if (resultCode == RESULT_CANCELED) {};
         }
@@ -94,8 +117,8 @@ public class AeronavesLista extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
-                listaAeronaves.remove(aeronaveWork);
-                listaAeronavesAdapter.notifyDataSetChanged();
+                aeronaveDAO.excluir(aeronaveWork);
+                pesquisar();
 
                 return true;
             }
@@ -119,6 +142,18 @@ public class AeronavesLista extends AppCompatActivity {
 
     }
 
+    private void pesquisar() {
+        String modelo = null;
+        if (edtTxtModeloPesq.getText() != null && !edtTxtModeloPesq.getText().toString().equals("")) {
+            modelo = edtTxtModeloPesq.getText().toString();
+        }
+
+        ArrayList<Aeronave> resultado = (ArrayList<Aeronave>) aeronaveDAO.buscarAeronavesPorModelo(modelo);
+        listaAeronaves.clear();
+        listaAeronaves.addAll(resultado);
+        listaAeronavesAdapter.notifyDataSetChanged();
+    }
+
     private void montarLista() {
         listaAeronavesAdapter = new AeronavesAdapter(listaAeronaves, this);
         ListView listaAeronavesView = (ListView) findViewById(R.id.listview1);
@@ -127,22 +162,24 @@ public class AeronavesLista extends AppCompatActivity {
         registerForContextMenu(listaAeronavesView);
     }
 
-    private void alterarAeronaveSelecionada(Aeronave res) {
-
-        this.aeronaveWork.setModelo(res.getModelo());
-        this.aeronaveWork.setFabricante(res.getFabricante());
-        this.aeronaveWork.setAsaFixa(res.isAsaFixa());
-        this.aeronaveWork.setTremRetratil(res.isTremRetratil());
-        this.aeronaveWork.setMultimotor(res.isMultimotor());
-        this.aeronaveWork.setVelocidadeCruzeiro(res.getVelocidadeCruzeiro());
-        this.aeronaveWork.setHangar(res.getHangar());
-        this.aeronaveWork.setApto(res.isApto());
-    }
+//    private void alterarAeronaveSelecionada(Aeronave res) {
+//
+//        this.aeronaveWork.setId(res.getId());
+//        this.aeronaveWork.setModelo(res.getModelo());
+//        this.aeronaveWork.setFabricante(res.getFabricante());
+//        this.aeronaveWork.setAsaFixa(res.isAsaFixa());
+//        this.aeronaveWork.setTremRetratil(res.isTremRetratil());
+//        this.aeronaveWork.setMultimotor(res.isMultimotor());
+//        this.aeronaveWork.setVelocidadeCruzeiro(res.getVelocidadeCruzeiro());
+//        this.aeronaveWork.setHangar(res.getHangar());
+//        this.aeronaveWork.setApto(res.isApto());
+//    }
 
     private Aeronave gerarAeronaveSelecionadaCopia() {
 
         Aeronave aer = new Aeronave();
 
+        aer.setId(this.aeronaveWork.getId());
         aer.setModelo(this.aeronaveWork.getModelo());
         aer.setFabricante(this.aeronaveWork.getFabricante());
         aer.setAsaFixa(this.aeronaveWork.isAsaFixa());

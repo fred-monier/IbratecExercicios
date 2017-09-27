@@ -14,9 +14,18 @@ import java.util.List;
 
 public class AeronaveDAO {
 
+    private static AeronaveDAO instancia;
+
     private AeronavesSQLHelper bdHelper;
 
-    public AeronaveDAO(Context context) {
+    public static AeronaveDAO getInstancia(Context context) {
+        if (instancia == null) {
+            instancia = new AeronaveDAO(context);
+        }
+        return instancia;
+    }
+
+    private AeronaveDAO(Context context) {
         bdHelper = new AeronavesSQLHelper(context);
     }
 
@@ -99,7 +108,7 @@ public class AeronaveDAO {
 
         if (modelo != null) {
             sql = sql + " WHERE " + bdHelper.TABELA_AERONAVE_COLUNA_MODELO + " LIKE ?";
-            args = new String[]{modelo};
+            args = new String[]{"%" + modelo + "%"};
         }
 
         sql = sql + " ORDER BY " + bdHelper.TABELA_AERONAVE_COLUNA_MODELO;
@@ -120,6 +129,14 @@ public class AeronaveDAO {
             Aeronave aeronave = new Aeronave();
             aeronave.setId(idCol);
             aeronave.setModelo(modeloCol);
+            aeronave.setFabricante(fabCol);
+            aeronave.setAsaFixa(valorInt(asaCol));
+            aeronave.setTremRetratil(valorInt(tremCol));
+            aeronave.setMultimotor(valorInt(mulCol));
+            aeronave.setVelocidadeCruzeiro(velCol);
+            aeronave.setHangar(hanCol);
+            aeronave.setApto(valorInt(aptCol));
+
             res.add(aeronave);
         }
 
@@ -132,6 +149,14 @@ public class AeronaveDAO {
             if (valor) {
                 res = 1;
             }
+        }
+        return res;
+    }
+
+    private boolean valorInt(int valor) {
+        boolean res = false;
+        if (valor == 1) {
+            res = true;
         }
         return res;
     }
