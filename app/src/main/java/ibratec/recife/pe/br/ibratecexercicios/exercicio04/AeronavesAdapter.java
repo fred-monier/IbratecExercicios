@@ -36,7 +36,7 @@ public class AeronavesAdapter extends BaseAdapter {
     }
 
     public long getItemId(int position) {
-        return position;
+        return dataSet.get(position).getId();
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
