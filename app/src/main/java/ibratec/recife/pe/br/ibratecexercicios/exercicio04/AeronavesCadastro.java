@@ -39,13 +39,17 @@ public class AeronavesCadastro extends AppCompatActivity {
     private RadioButton rdBtHangarHA03;
     private ToggleButton tgBtDisponib;
 
-    private long idAeronave = 0;
+    private Aeronave aeronaveWork;
+
+    private AeronaveDAO aeronaveDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aeronaves_cadastro);
+
+        aeronaveDAO = AeronaveDAO.getInstancia(this);
 
         //Inicializando componentes
         edtTxtModelo = (EditText) findViewById(R.id.edtTxtModelo);
@@ -106,12 +110,16 @@ public class AeronavesCadastro extends AppCompatActivity {
             public void onClick(View v) {
                 if (edtTxtModelo.getText() != null && !edtTxtModelo.getText().toString().equals("")) {
 
-                    //Criar o objeto Aeronave
-                    Aeronave aeronave = gerarAeronave();
-
+                    //Salvar o objeto Aeronave
+                    definirValores();
+                    aeronaveDAO.salvar(aeronaveWork);
                     Intent intent = getIntent();
-                    intent.putExtra(AeronavesLista.AERONAVE, aeronave);
+                    intent.putExtra(AeronavesLista.AERONAVE, aeronaveWork);
                     setResult(Activity.RESULT_OK, intent);
+
+                    Toast toast = Toast.makeText(getApplicationContext(), "Salvo com sucesso", Toast.LENGTH_SHORT);
+                    toast.show();
+
                     finish();
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Você deve informar um Modelo", Toast.LENGTH_SHORT);
@@ -126,7 +134,7 @@ public class AeronavesCadastro extends AppCompatActivity {
 
         if (aer != null) {
 
-            this.idAeronave = aer.getId();
+            this.aeronaveWork = aer;
 
             edtTxtModelo.setText(aer.getModelo());
 
@@ -152,21 +160,21 @@ public class AeronavesCadastro extends AppCompatActivity {
 
             tgBtDisponib.setChecked(aer.isApto());
 
+        } else {
+
+            this.aeronaveWork = new Aeronave();
         }
 
     }
 
-    private Aeronave gerarAeronave() {
+    private void definirValores() {
 
-        Aeronave res = new Aeronave();
-
-        res.setId(this.idAeronave);
-        res.setModelo(this.edtTxtModelo.getText().toString());
-        res.setFabricante(this.spFabricante.getSelectedItem().toString());
-        res.setAsaFixa(this.swtAsaFixa.isChecked());
-        res.setTremRetratil(this.chBoxTremRetrat.isChecked());
-        res.setMultimotor(this.chBoxMultimotor.isChecked());
-        res.setVelocidadeCruzeiro(this.seeBarVelCruzeiro.getProgress());
+        this.aeronaveWork.setModelo(this.edtTxtModelo.getText().toString());
+        this.aeronaveWork.setFabricante(this.spFabricante.getSelectedItem().toString());
+        this.aeronaveWork.setAsaFixa(this.swtAsaFixa.isChecked());
+        this.aeronaveWork.setTremRetratil(this.chBoxTremRetrat.isChecked());
+        this.aeronaveWork.setMultimotor(this.chBoxMultimotor.isChecked());
+        this.aeronaveWork.setVelocidadeCruzeiro(this.seeBarVelCruzeiro.getProgress());
 
         String hangar;
         if (rdBtHangarHA01.isChecked()) {
@@ -176,10 +184,9 @@ public class AeronavesCadastro extends AppCompatActivity {
         } else {
             hangar = Aeronave.LISTA_HANGAR.get(2);
         }
-        res.setHangar(hangar);
+        this.aeronaveWork.setHangar(hangar);
 
-        res.setApto(this.tgBtDisponib.isChecked());
-
-        return res;
+        this.aeronaveWork.setApto(this.tgBtDisponib.isChecked());
     }
+
 }

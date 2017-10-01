@@ -22,8 +22,7 @@ public class AeronavesLista extends AppCompatActivity {
     public static final String AERONAVE = "Aeronave";
 
     private static final String LISTA_AERONAVES = "ListaAeronaves";
-    private static final int INCLUIR_AERONAVE = 1;
-    private static final int ALTERAR_AERONAVE = 2;
+    private static final int CADASTRAR_AERONAVE = 1;
 
     private EditText edtTxtModeloPesq;
 
@@ -65,7 +64,7 @@ public class AeronavesLista extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AeronavesLista.this, AeronavesCadastro.class);
-                startActivityForResult(intent, INCLUIR_AERONAVE);
+                startActivityForResult(intent, CADASTRAR_AERONAVE);
             }
         });
         ////////////////
@@ -81,28 +80,13 @@ public class AeronavesLista extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == INCLUIR_AERONAVE) {
-
             if (resultCode == RESULT_OK) {
 
-                Aeronave aeronave = (Aeronave) data.getSerializableExtra(AERONAVE);
-
-                aeronaveDAO.salvar(aeronave);
+                aeronaveWork = (Aeronave) data.getSerializableExtra(AERONAVE);
                 pesquisar();
 
-            } else if (resultCode == RESULT_CANCELED) {};
+            } else if (resultCode == RESULT_CANCELED) {}
 
-        } else if (requestCode == ALTERAR_AERONAVE) {
-
-            if (resultCode == RESULT_OK) {
-
-                Aeronave aeronave = (Aeronave) data.getSerializableExtra(AERONAVE);
-                aeronaveDAO.salvar(aeronave);
-                //this.alterarAeronaveSelecionada(aeronave);
-                pesquisar();
-
-            } else if (resultCode == RESULT_CANCELED) {};
-        }
     }
 
     @Override
@@ -130,8 +114,8 @@ public class AeronavesLista extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
 
                 Intent intent = new Intent(AeronavesLista.this, AeronavesCadastro.class);
-                intent.putExtra(AERONAVE, gerarAeronaveSelecionadaCopia());
-                startActivityForResult(intent, ALTERAR_AERONAVE);
+                intent.putExtra(AERONAVE, aeronaveWork);
+                startActivityForResult(intent, CADASTRAR_AERONAVE);
 
                 return true;
             }
@@ -162,33 +146,4 @@ public class AeronavesLista extends AppCompatActivity {
         registerForContextMenu(listaAeronavesView);
     }
 
-//    private void alterarAeronaveSelecionada(Aeronave res) {
-//
-//        this.aeronaveWork.setId(res.getId());
-//        this.aeronaveWork.setModelo(res.getModelo());
-//        this.aeronaveWork.setFabricante(res.getFabricante());
-//        this.aeronaveWork.setAsaFixa(res.isAsaFixa());
-//        this.aeronaveWork.setTremRetratil(res.isTremRetratil());
-//        this.aeronaveWork.setMultimotor(res.isMultimotor());
-//        this.aeronaveWork.setVelocidadeCruzeiro(res.getVelocidadeCruzeiro());
-//        this.aeronaveWork.setHangar(res.getHangar());
-//        this.aeronaveWork.setApto(res.isApto());
-//    }
-
-    private Aeronave gerarAeronaveSelecionadaCopia() {
-
-        Aeronave aer = new Aeronave();
-
-        aer.setId(this.aeronaveWork.getId());
-        aer.setModelo(this.aeronaveWork.getModelo());
-        aer.setFabricante(this.aeronaveWork.getFabricante());
-        aer.setAsaFixa(this.aeronaveWork.isAsaFixa());
-        aer.setTremRetratil(this.aeronaveWork.isTremRetratil());
-        aer.setMultimotor(this.aeronaveWork.isMultimotor());
-        aer.setVelocidadeCruzeiro(this.aeronaveWork.getVelocidadeCruzeiro());
-        aer.setHangar(this.aeronaveWork.getHangar());
-        aer.setApto(this.aeronaveWork.isApto());
-
-        return  aer;
-    }
 }
