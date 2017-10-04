@@ -1,7 +1,11 @@
 package ibratec.recife.pe.br.ibratecexercicios;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -21,6 +25,8 @@ public class Exercicio02 extends AppCompatActivity {
     public static final String VAR_ESTUDANTE = "Estudante";
 
     private static final int INSERIR_ESTUDANTE = 1;
+    private static final int CALL_PERMISSION = 1;
+    private static final int SMS_PERMISSION = 2;
     private static final String LISTA_ESTUDANTES = "ListaDeEstudantes";
 
     private Button buttonInserirEstudante;
@@ -88,13 +94,8 @@ public class Exercicio02 extends AppCompatActivity {
         itemLigar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
              @Override
              public boolean onMenuItemClick(MenuItem item) {
-                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                 callIntent.setData(Uri.parse("tel:" + estudanteSelecionado.getTelefone()));
-                 try {
-                     startActivity(callIntent);
-                 } catch (Exception e) {
-                     Toast toast = Toast.makeText(getApplicationContext(), "Erro ao tentar ligar para estudante", Toast.LENGTH_SHORT);
-                     toast.show();
+                 if (isCallphoneAllowed()) {
+                     callPhone();
                  }
                  return true;
              }
@@ -104,16 +105,8 @@ public class Exercicio02 extends AppCompatActivity {
         itemSMS.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
-                try {
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(estudanteSelecionado.getTelefone(), null, "Olá, estudante!", null, null);
-                    Toast.makeText(getApplicationContext(), "Mensagem enviada",
-                            Toast.LENGTH_SHORT).show();
-                } catch (Exception ex) {
-                    Toast.makeText(getApplicationContext(),ex.getMessage().toString(),
-                            Toast.LENGTH_LONG).show();
-                    ex.printStackTrace();
+                if (isSendSMSeAllowed()) {
+                    sendSMS();
                 }
                 return true;
             }
@@ -145,7 +138,6 @@ public class Exercicio02 extends AppCompatActivity {
         estudanteSelecionado = listEstudantesAdapter.getItem(info.position);
     }
 
-
     private void montarLista() {
         listEstudantesAdapter =
                 new ArrayAdapter<Exercicio02_Estudante>(this, android.R.layout.simple_list_item_1, listEstudantes);
@@ -154,5 +146,93 @@ public class Exercicio02 extends AppCompatActivity {
 
         registerForContextMenu(listEstudantesView);
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+
+            case CALL_PERMISSION: {
+
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(), "Permissão concedida", Toast.LENGTH_SHORT).show();
+                    callPhone();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Permissão negada", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            case SMS_PERMISSION: {
+
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(), "Permissão concedida", Toast.LENGTH_SHORT).show();
+                    sendSMS();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Permissão negada", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+        }
+    }
+
+    private boolean isCallphoneAllowed() {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.CALL_PHONE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, CALL_PERMISSION);
+                return false;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+
+    private boolean isSendSMSeAllowed() {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.SEND_SMS)
+                    == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SMS_PERMISSION);
+                return false;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+
+    private void callPhone() {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" + estudanteSelecionado.getTelefone()));
+        try {
+            startActivity(callIntent);
+        } catch (Exception e) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Erro ao tentar ligar para estudante", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+    private void sendSMS() {
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(estudanteSelecionado.getTelefone(), null, "Olá, estudante!", null, null);
+            Toast.makeText(getApplicationContext(), "Mensagem enviada",
+                    Toast.LENGTH_SHORT).show();
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(),ex.getMessage().toString(),
+                    Toast.LENGTH_LONG).show();
+            ex.printStackTrace();
+        }
     }
 }
